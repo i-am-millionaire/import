@@ -1,6 +1,6 @@
 #!/bin/bash
 
-domain="domainname.extension"
+domain="google.com"
 output_file="subdomains.txt"
 
 # Define your character set and length for subdomains
