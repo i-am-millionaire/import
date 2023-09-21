@@ -1,1 +1,21 @@
-apt-get install  libssl-dev libpcre3 libpcre3-dev gcc make && wget https://github.com/spinkham/skipfish/archive/master.zip && unzip master.zip && cd skipfish-master && make
+#!/bin/bash
+
+domain="domainname.extension"
+output_file="subdomains.txt"
+
+# Define your character set and length for subdomains
+charset="abcdefghijklmnopqrstuvwxyz0123456789"
+length=3  # You can adjust this as needed
+
+# Generate all possible subdomains
+crunch $length $length -t $charset -o temp.txt
+sed "s/^/$domain./" temp.txt > $output_file
+rm temp.txt
+
+# Check the HTTP status code for each subdomain and filter for 200
+while read subdomain; do
+    http_status=$(curl -s -o /dev/null -w "%{http_code}" "http://$subdomain")
+    if [ "$http_status" == "200" ]; then
+        echo "$subdomain: $http_status"
+    fi
+done < $output_file
