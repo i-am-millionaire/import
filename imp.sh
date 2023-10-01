@@ -1,3 +1,4 @@
+#!/bin/sh
 echo " abmc.gov" |  /root/go/bin/waybackurls  | tee  1.txt
 echo " app.acorns.com" |  /root/go/bin/waybackurls  | tee  2.txt
 echo " apps.apple.com" |  /root/go/bin/waybackurls  | tee  3.txt
